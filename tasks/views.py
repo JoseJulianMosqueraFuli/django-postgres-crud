@@ -9,7 +9,17 @@ def list_task(request):
 
 def create_task(request):
     print(request.POST)
-    task = Task(tittle=request.POST['tittle'], description=request.POST['description'])
+    task = Task(tittle = request.POST['tittle'], description = request.POST['description'])
     task.save()
     return redirect('/tasks/')
 
+def delete_task(request, task_id):
+    task = Task.objects.get(id = task_id)
+    task.delete()
+    return redirect('/tasks/')
+
+def update_task (request, task_id):
+    if Task.objects.get(id = task_id):
+        task = Task(tittle = request.POST['tittle'], description = request.POST['description'])
+        task.save()
+    return redirect('/tasks/')

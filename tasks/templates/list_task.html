@@ -19,11 +19,7 @@
 
       <input type="text" name="tittle" placeholder="Write a tittle" />
 
-      <textarea
-        name="description"
-        name="description"
-        placeholder="Write a description"
-      ></textarea>
+      <textarea name="description" placeholder="Write a description"></textarea>
 
       <button>Save</button>
     </form>
@@ -32,7 +28,14 @@
     <div>
       <h4>{{task.tittle}}</h4>
       <p>{{task.description}}</p>
-      <button>Delete</button>
+      <form action="{% url 'delete_task' task.id %}" method="post">
+        {% csrf_token %}
+        <button>Delete</button>
+      </form>
+      <form action="{% url 'update_task' task.id %}" method="post">
+        {% csrf_token %}
+        <button>Update</button>
+      </form>
     </div>
     {% empty %}
     <h2>No task yet</h2>
