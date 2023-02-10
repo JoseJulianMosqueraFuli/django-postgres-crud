@@ -19,7 +19,7 @@ def delete_task(request, task_id):
     return redirect('/tasks/')
 
 def update_task (request, task_id):
-    if Task.objects.get(id = task_id):
-        task = Task(tittle = request.POST['tittle'], description = request.POST['description'])
-        task.save()
+    get_id = Task.objects.get(id = task_id)
+    if form.is_valid():  
+        form.save()  
     return redirect('/tasks/')

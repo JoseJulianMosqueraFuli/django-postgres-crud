@@ -13,32 +13,45 @@
     <title>Django CRUD</title>
   </head>
   <body>
-    <h1>Tasks</h1>
-    <form action="{% url 'create_task' %}" method="post">
-      {% csrf_token %}
+    <div class="containter">
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <h1>Tasks</h1>
+          <form action="{% url 'create_task' %}" method="post" class="card card-body bg-dark-subtle">
+            {% csrf_token %}
 
-      <input type="text" name="tittle" placeholder="Write a tittle" />
+            <label for="title" color="bg-dark-subtle">Title:</label>
+            <input type="text" name="tittle" placeholder="Write a tittle" class="form-control mb-2"/>
 
-      <textarea name="description" placeholder="Write a description"></textarea>
+            <label for="description">Description:</label>
+            <textarea
+              name="description"
+              placeholder="Write a description"
+              row="3"
+              class="form-control mb-2"
+            ></textarea>
 
-      <button>Save</button>
-    </form>
+            <button class="btn btn-success">Save</button>
+          </form>
 
-    {% for task in tasks %}
-    <div>
-      <h4>{{task.tittle}}</h4>
-      <p>{{task.description}}</p>
-      <form action="{% url 'delete_task' task.id %}" method="post">
-        {% csrf_token %}
-        <button>Delete</button>
-      </form>
-      <form action="{% url 'update_task' task.id %}" method="post">
-        {% csrf_token %}
-        <button>Update</button>
-      </form>
+          {% for task in tasks %}
+          <div class="card card-body text-bg-light mt-2 d-flex flex-row justify-content-between">
+            <h4>{{task.tittle}}</h4>
+            <p>{{task.description}}</p>
+            <form action="{% url 'delete_task' task.id %}" method="post">
+              {% csrf_token %}
+              <button class="btn btn-danger">Delete</button>
+            </form>
+            <form action="{% url 'update_task' task.id %}" method="post">
+              {% csrf_token %}
+              <button class="btn btn-info">Update</button>
+            </form>
+          </div>
+          {% empty %}
+          <h2>No task yet</h2>
+          {% endfor %}
+        </div>
+      </div>
     </div>
-    {% empty %}
-    <h2>No task yet</h2>
-    {% endfor %}
   </body>
 </html>
